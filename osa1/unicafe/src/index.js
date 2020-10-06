@@ -7,6 +7,7 @@ const Button = ({ onClick, text }) => (
   </button>
 )
 
+// Tämä olikin täällä jo alusta alkaen
 const Statistics = ({ good, neutral, bad }) => {
   const all = (good + neutral + bad)
   const average = ((good - bad) / all)
