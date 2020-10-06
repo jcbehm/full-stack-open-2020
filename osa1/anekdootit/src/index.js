@@ -6,6 +6,8 @@ const Button = ({ handleClick, text }) => (
     {text}
   </button>
 )
+//Array.apply(null, new Array(6)).map(Number.prototype.valueOf,0)
+const points = [0, 0, 0, 0, 0, 0]
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -13,12 +15,21 @@ function getRandomInt(max) {
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+
+  const vote = () => {
+    points[selected] = (points[selected] + 1)
+    console.log(points[selected])
+  }
   const newRandom = () => setSelected(getRandomInt(6))
+
 
   return (
     <div>
       {props.anecdotes[selected]}
       <br/>
+      has {points[selected]} votes
+      <br/>
+      <Button handleClick={vote} text='vote'/>
       <Button handleClick={newRandom} text='next anecdote'/>
     </div>
   )
