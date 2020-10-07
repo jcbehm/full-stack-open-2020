@@ -6,31 +6,39 @@ const Button = ({ handleClick, text }) => (
     {text}
   </button>
 )
-//Array.apply(null, new Array(6)).map(Number.prototype.valueOf,0)
-const points = [0, 0, 0, 0, 0, 0]
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
 const App = (props) => {
+  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0])
   const [selected, setSelected] = useState(0)
+  const largestIndex = points.indexOf(Math.max(...points))
 
   const vote = () => {
-    points[selected] = (points[selected] + 1)
+    const copy = [...points]
+    copy[selected] += 1
+    setPoints([...copy])
     console.log(points[selected])
   }
   const newRandom = () => setSelected(getRandomInt(6))
+  
 
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]}
       <br/>
       has {points[selected]} votes
       <br/>
       <Button handleClick={vote} text='vote'/>
       <Button handleClick={newRandom} text='next anecdote'/>
+      <h1>Anecdote with most votes</h1>
+      {props.anecdotes[largestIndex]}
+      <br/>
+      has {points[largestIndex]} votes
     </div>
   )
 }
