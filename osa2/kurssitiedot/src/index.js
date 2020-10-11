@@ -33,10 +33,13 @@ const Course = ({ course }) => {
   }
 
   const Total = (props) => {
-    let total = 0
-    props.parts.map(part =>
-      total = total + part.exercises
+    let tehtavat = []
+    props.parts.forEach(part => {
+      tehtavat = tehtavat.concat(part.exercises)}
     )
+    const reducer =
+      (accumulator, currentValue) => accumulator + currentValue
+    const total = tehtavat.reduce(reducer)
 
     return (
       <>
@@ -56,16 +59,6 @@ const Course = ({ course }) => {
     </>
   )
 }
-
-
-
-
-
-
-
-/*
-
-*/
 
 const App = () => {
   const course = {
