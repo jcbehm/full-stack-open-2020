@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import Name from './components/Name'
+import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas',
+      number: '040-1231244'}
   ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
     const noteObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     let includes = false
@@ -27,10 +30,15 @@ const App = () => {
     }
 
     setNewName('')
+    setNewNumber('')
   }
 
-  const handleFormChange = (event) => {
+  const handleNameChange = (event) => {
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -38,7 +46,18 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={handleFormChange}/>
+          name:
+          <input
+            value={newName}
+            onChange={handleNameChange}
+          />
+        </div>
+        <div>
+          number:
+            <input
+            value={newNumber}
+            onChange={handleNumberChange}
+          />
         </div>
         <div>
           <button type="submit">add</button>
@@ -47,7 +66,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         {persons.map((person) => 
-          <Name key={person.name} name={person.name} />
+          <Person key={person.name} person={person} />
         )}
       </div>
     </>
