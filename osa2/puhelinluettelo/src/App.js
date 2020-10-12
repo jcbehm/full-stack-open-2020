@@ -13,7 +13,19 @@ const App = () => {
       name: newName
     }
 
-    setPersons(persons.concat(noteObject))
+    let includes = false
+    persons.forEach(person => {
+      if (person.name === newName) {
+        includes = true
+      }
+    })
+
+    if (includes) {
+      window.alert(`${newName} is already added to phonebook`)
+    } else {
+      setPersons(persons.concat(noteObject))
+    }
+
     setNewName('')
   }
 
