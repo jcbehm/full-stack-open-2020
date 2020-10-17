@@ -33,13 +33,34 @@ const Line = ({ line }) => (
   </div>
 )
 
-const Display = ({ countriesToShow }) => {
+const LineWithButton = ({ line, setNewSearch }) => (
+  <div>
+    {line}
+    <button onClick={() => setNewSearch(line)}>
+      show
+    </button>
+  </div>
+)
+
+const Display = ({ countriesToShow, setNewSearch }) => {
   let info = []
   info = countriesToShow.length > 10
     ? ['Too many matches, specify another filter']
     : countriesToShow.length < 2
       ? [' ']
       : countriesToShow.map(country => country.name);
+
+
+  if (countriesToShow.length < 11 && 1 < countriesToShow.length) {
+    return (
+      <div>
+        {info.map((line, i) =>
+          <LineWithButton key={i}
+            line={line} setNewSearch={setNewSearch} />
+        )}
+      </div>
+    )
+  }
 
   if (countriesToShow.length === 1) {
     return (
@@ -64,9 +85,9 @@ function App() {
   let countriesToShow = []
 
   if (newSearch !== '')
-  countriesToShow = allCountries.filter(country =>
-    country.name.toLowerCase().includes(newSearch.toLowerCase())
-  )
+    countriesToShow = allCountries.filter(country =>
+      country.name.toLowerCase().includes(newSearch.toLowerCase())
+    )
 
   useEffect(() => {
     axios
@@ -88,7 +109,8 @@ function App() {
         value={newSearch}
         onChange={handleSearchChange}
       />
-      <Display countriesToShow={countriesToShow} />
+      <Display countriesToShow={countriesToShow}
+        setNewSearch={setNewSearch} />
     </div>
   )
 }
