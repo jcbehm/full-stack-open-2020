@@ -1,15 +1,22 @@
 import React from 'react'
 import Person from './Person'
 
-const Persons = (props) => {
-    
+
+
+const Persons = ({personsToShow, persons, setPersons}) => {
 
     return (
-        <div>
-            {props.personsToShow.map((person) =>
-                <Person key={person.name} person={person} />
+        <>
+            {personsToShow.map((person) =>
+                <div key={person.name}>
+                    <Person
+                    key={person.name}
+                    person={person}
+                    persons={persons}
+                    setPersons={setPersons} />
+                </div>
             )}
-        </div>
+        </>
     )
 }
 

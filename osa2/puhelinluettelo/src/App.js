@@ -12,7 +12,6 @@ const App = () => {
 
 
   useEffect(() => {
-    console.log('effect')
     personService
       .getAll()
       .then(initialPersons => {
@@ -20,7 +19,6 @@ const App = () => {
       })
   }, [])
 
-  console.log('render', persons.length, 'persons')
 
 
 
@@ -57,6 +55,8 @@ const App = () => {
       <h2>Numbers</h2>
       <Persons
         personsToShow={personsToShow}
+        persons={persons}
+        setPersons={setPersons}
       />
     </>
   )
