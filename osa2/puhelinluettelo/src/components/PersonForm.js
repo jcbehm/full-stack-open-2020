@@ -27,6 +27,12 @@ const PersonForm = (props) => {
           .then(returnedPerson => {
             props.setPersons(props.persons.map(person => person.name !== personObject.name ? person : returnedPerson))
           })
+        props.setMessage(
+          `Updated ${personObject.name}`
+        )
+        setTimeout(() => {
+          props.setMessage(null)
+        }, 5000)
       }
 
     } else {
@@ -35,6 +41,12 @@ const PersonForm = (props) => {
         .then(returnedPerson => {
           props.setPersons(props.persons.concat(returnedPerson))
         })
+      props.setMessage(
+        `Added ${personObject.name}`
+      )
+      setTimeout(() => {
+        props.setMessage(null)
+      }, 5000)
     }
 
     props.setNewName('')

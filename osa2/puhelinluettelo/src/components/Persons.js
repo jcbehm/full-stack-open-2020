@@ -3,7 +3,7 @@ import Person from './Person'
 
 
 
-const Persons = ({personsToShow, persons, setPersons}) => {
+const Persons = ({personsToShow, persons, setPersons, setMessage}) => {
 
     return (
         <>
@@ -13,7 +13,8 @@ const Persons = ({personsToShow, persons, setPersons}) => {
                     key={person.name}
                     person={person}
                     persons={persons}
-                    setPersons={setPersons} />
+                    setPersons={setPersons}
+                    setMessage={setMessage} />
                 </div>
             )}
         </>
