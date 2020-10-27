@@ -11,7 +11,6 @@ const Person = ({person, persons, setPersons}) => {
 
       return (
         <>
-          {console.log('will delete')}
           {personService.erase(person.id)}
           {setPersons(copy)}
         </>
@@ -21,7 +20,6 @@ const Person = ({person, persons, setPersons}) => {
 
       return (
         <>
-          {console.log('not deleted')}
         </>
       )
 

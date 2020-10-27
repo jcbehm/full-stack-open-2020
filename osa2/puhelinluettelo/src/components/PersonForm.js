@@ -9,15 +9,26 @@ const PersonForm = (props) => {
       number: props.newNumber
     }
 
+    let replacable = {}
     let includes = false
     props.persons.forEach(person => {
       if (person.name === props.newName) {
         includes = true
+        replacable = person
       }
     })
 
     if (includes) {
-      window.alert(`${props.newName} is already added to phonebook`)
+      if (window.confirm(
+        `${props.newName} is already added to phonebook, replace the old number with a new one?`)) {
+
+        personService
+          .update(replacable.id, personObject)
+          .then(returnedPerson => {
+            props.setPersons(props.persons.map(person => person.name !== personObject.name ? person : returnedPerson))
+          })
+      }
+
     } else {
       personService
         .create(personObject)
