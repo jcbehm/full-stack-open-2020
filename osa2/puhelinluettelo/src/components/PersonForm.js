@@ -27,6 +27,17 @@ const PersonForm = (props) => {
           .then(returnedPerson => {
             props.setPersons(props.persons.map(person => person.name !== personObject.name ? person : returnedPerson))
           })
+          .catch(error => {
+            props.setMessage(
+              `Information of ${personObject.name} has already been removed from server`
+            )
+            setTimeout(() => {
+              props.setMessage(null)
+            }, 5000)
+            console.log(error)
+            props.setPersons(props.persons.filter(n => n.id !== replacable.id))
+          })
+
         props.setMessage(
           `Updated ${personObject.name}`
         )
