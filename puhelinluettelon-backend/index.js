@@ -26,13 +26,20 @@ let persons = [
 
 app.get('/', (req, res) => {
     res.send('<h1>Tervetuloa puhelinluettelon palvelimelle!</h1>')
-  })
-  
-  app.get('/api/persons', (req, res) => {
+})
+
+app.get('/info', (req, res) => {
+
+    const phonebookSizeInfo = ("Phonebook has info for " + persons.length + " people<br><br>")
+    const date = new Date()
+    res.send((phonebookSizeInfo + date))
+})
+
+app.get('/api/persons', (req, res) => {
     res.json(persons)
-  })
-  
-  const PORT = 3001
-  app.listen(PORT, () => {
+})
+
+const PORT = 3001
+app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
-  })
+})
