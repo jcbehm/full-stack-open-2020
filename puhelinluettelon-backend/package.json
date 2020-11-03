@@ -1,7 +1,7 @@
 {
   "name": "puhelinluettelon-backend",
-  "version": "0.2.0",
-  "description": "Full Stack -tehtava 3.2",
+  "version": "0.3.0",
+  "description": "Full Stack -tehtava 3.3",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

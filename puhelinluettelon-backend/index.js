@@ -25,11 +25,10 @@ let persons = [
 ]
 
 app.get('/', (req, res) => {
-    res.send('<h1>Tervetuloa puhelinluettelon palvelimelle!</h1>')
+    res.send('<h1>Welcome to the phonebook server!</h1>')
 })
 
 app.get('/info', (req, res) => {
-
     const phonebookSizeInfo = ("Phonebook has info for " + persons.length + " people<br><br>")
     const date = new Date()
     res.send((phonebookSizeInfo + date))
@@ -37,6 +36,18 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
     res.json(persons)
+})
+
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)
+
+
+    if (person) {
+        response.json(person)
+    } else {
+        response.status(404).end()
+    }
 })
 
 const PORT = 3001
