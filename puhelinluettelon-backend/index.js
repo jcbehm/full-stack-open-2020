@@ -66,7 +66,7 @@ app.get('/api/persons/:id', (request, response) => {
                 response.status(404).end()
             }
         })
-        
+
 })
 
 app.post('/api/persons', (request, response) => {
@@ -76,7 +76,7 @@ app.post('/api/persons', (request, response) => {
         return response.status(400).json({
             error: 'name or number missing'
         })
-        .catch(error => next(error))
+            .catch(error => next(error))
     }
 
     /*
@@ -100,10 +100,25 @@ app.post('/api/persons', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
     Person.findByIdAndRemove(request.params.id)
-    .then(result => {
-      response.status(204).end()
-    })
-    .catch(error => next(error))
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
+})
+
+app.put('/api/persons/:id', (request, response, next) => {
+    const body = request.body
+
+    const person = {
+        name: body.name,
+        number: body.number
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+        .then(updatedPerson => {
+            response.json(updatedPerson)
+        })
+        .catch(error => next(error))
 })
 
 // olemattomien osoitteiden käsittely
@@ -114,7 +129,6 @@ app.use(unknownEndpoint)
 
 // virheellisten pyyntöjen käsittely
 const errorHandler = (error, request, response, next) => {
-    console.log('VIRHEIDENKÄSITTELYSTÄ PÄIVÄÄ')
     console.error(error.message)
 
     if (error.name === 'CastError') {
