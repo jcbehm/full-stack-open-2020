@@ -24,7 +24,7 @@ const Notification = ({ message }) => {
         return null
     }
 
-    if (message.split(" ")[0] === 'Information') {
+    if (message.split(" ")[0] === 'Error:') {
         return (
             <div style={errorStyle}>
                 {message}

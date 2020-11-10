@@ -29,7 +29,7 @@ const PersonForm = (props) => {
           })
           .catch(error => {
             props.setMessage(
-              `Information of ${personObject.name} has already been removed from server`
+              `Error: Information of ${personObject.name} has already been removed from server`
             )
             setTimeout(() => {
               props.setMessage(null)
@@ -49,15 +49,23 @@ const PersonForm = (props) => {
     } else {
       personService
         .create(personObject)
-        .then(returnedPerson => {
-          props.setPersons(props.persons.concat(returnedPerson))
+        .then(createdPerson => {
+          props.setPersons(props.persons.concat(createdPerson))
+          props.setMessage(
+            `Added ${personObject.name}`
+          )
+          setTimeout(() => {
+            props.setMessage(null)
+          }, 5000)
         })
-      props.setMessage(
-        `Added ${personObject.name}`
-      )
-      setTimeout(() => {
-        props.setMessage(null)
-      }, 5000)
+        .catch(error => {
+          props.setMessage(
+            `Error: ${error.response.data.error}`
+          )
+          setTimeout(() => {
+            props.setMessage(null)
+          }, 5000)
+        })
     }
 
     props.setNewName('')
