@@ -46,9 +46,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-    const phonebookSizeInfo = ("Phonebook has info for " + persons.length + " people<br><br>")
-    const date = new Date()
-    res.send((phonebookSizeInfo + date))
+    Person.find({}).then(result => {
+        const phonebookSizeInfo = ("Phonebook has info for " + result.length + " people<br><br>")
+        const date = new Date()
+        res.send((phonebookSizeInfo + date))
+    })
 })
 
 app.get('/api/persons', (req, response) => {
