@@ -60,3 +60,23 @@ describe('favorite blog', () => {
     expect(result).toEqual(expected)
   })
 })
+
+describe('most blogs', () => {
+  test('when list has only one blog equals to that blog´s author', () => {
+    const result = listHelper.mostBlogs(listWithOneBlog)
+    const expected = {
+      author: 'Edsger W. Dijkstra',
+      blogs: 1
+    }
+    expect(result).toEqual(expected)
+  })
+
+  test('when list has many blogs equals to the author with most blogs', () => {
+    const result = listHelper.mostBlogs(listWithSixBlogs)
+    const expected = {
+      author: 'Robert C. Martin',
+      blogs: 3
+    }
+    expect(result).toEqual(expected)
+  })
+})
