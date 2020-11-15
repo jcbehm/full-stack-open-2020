@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Tyä miähen plogi 2",
+  "title": "Tyä miähen plogi 3",
   "author": "Kauppisen Pete",
-  "url": "www.kauppisenmaansiirtofirma.fi/toinen-bloki",
+  "url": "www.kauppisenmaansiirtofirma.fi/kolmas-bloki",
   "likes": "3"
 }

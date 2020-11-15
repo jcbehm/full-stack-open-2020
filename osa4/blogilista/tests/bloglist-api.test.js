@@ -44,6 +44,76 @@ test('identificative form is named id and only id', async () => {
   expect(response.body[0].id.toBeDefined && response.body[0]._id.not.toBeDefined)
 })
 
+test('a valid blog can be added ', async () => {
+  const newBlog = {
+    'title': 'Uusi blogi',
+    'author': 'Supertest',
+    'url': 'www.supertest.fi',
+    'likes': 3
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+
+  const titles = response.body.map(r => r.title)
+
+  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(titles).toContain(
+    'Uusi blogi'
+  )
+})
+/*
+test('blog without url is not added', async () => {
+  const newBlog = {
+    'title': 'Uskomaton blogi',
+    'author': 'Jeesus',
+    'likes': 777
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+
+  const response = await api.get('/api/blogs')
+
+  expect(response.body).toHaveLength(initialBlogs.length)
+})
+
+test('blog without likes-param. is considered a blog with zero likes', async () => {
+  const newBlog = {
+    'title': 'ploki',
+    'author': 'Timo Soini',
+    'url': 'www.timosoini.fi'
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+
+  const titles = response.body.map(r => r.title)
+
+  expect(response.body).toHaveLength(initialBlogs.length + 1)
+  expect(titles).toContain(
+    'ploki'
+  )
+  expect(response.body
+    .filter(blog => blog.title === 'ploki')
+    .map(ploki => ploki.likes)
+    .toEqual(0)
+  )
+})
+*/
+
 afterAll(() => {
   mongoose.connection.close()
 })
