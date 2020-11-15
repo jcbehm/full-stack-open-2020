@@ -1,0 +1,8 @@
+PUT http://localhost:3003/api/blogs/5fae725cf493b64c44919d05
+Content-Type: application/json
+
+{
+  "title": "Tyä miähen plogi 4",
+  "author": "Kauppisen Pete",
+  "url": "www.kauppisenmaansiirtofirma.fi/neljä-bloki"
+}
