@@ -84,7 +84,7 @@ test('blog without url is not added', async () => {
 
   expect(response.body).toHaveLength(initialBlogs.length)
 })
-
+*/
 test('blog without likes-param. is considered a blog with zero likes', async () => {
   const newBlog = {
     'title': 'ploki',
@@ -108,11 +108,10 @@ test('blog without likes-param. is considered a blog with zero likes', async () 
   )
   expect(response.body
     .filter(blog => blog.title === 'ploki')
-    .map(ploki => ploki.likes)
-    .toEqual(0)
-  )
+    .map(ploki => ploki.likes))
+    .toEqual([0])
 })
-*/
+
 
 afterAll(() => {
   mongoose.connection.close()
