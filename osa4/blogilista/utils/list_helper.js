@@ -49,7 +49,7 @@ const mostBlogs = (blogs) => {
       topIndex = index
     }
   })
-  const mostBlogs = { author: authors[topIndex], blogs: blogsWritten[topIndex]}
+  const mostBlogs = { author: authors[topIndex], blogs: blogsWritten[topIndex] }
   return mostBlogs
 }
 
@@ -83,7 +83,7 @@ const mostLikes = (blogs) => {
     }
   }
 
-  const mostLikes = { author: authors[topIndex], likes: authorLikes[topIndex]}
+  const mostLikes = { author: authors[topIndex], likes: authorLikes[topIndex] }
   return mostLikes
 }
 
