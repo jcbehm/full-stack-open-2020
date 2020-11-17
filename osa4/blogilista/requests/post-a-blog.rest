@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktvdGthbWllcyIsImlkIjoiNWZiM2RlOTYxNTI5ZDAzMDZjNzJhM2NlIiwiaWF0IjoxNjA1NjM1ODYxfQ.EEm9oKq4SodS7siPukLvjGInVzAL0fRiSf_iC76Sc3U
 
 {
-  "title": "Työ miehen salat",
+  "title": "Daewoon käyttö ohoje",
   "author": "Pete Kauppinen",
-  "url": "www.kauppisenmaansiirtofirma.fi/blogi"
+  "url": "www.kauppisenmaansiirtofirma.fi/ohje"
 }
