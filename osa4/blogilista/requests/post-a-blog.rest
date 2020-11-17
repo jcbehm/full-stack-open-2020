@@ -2,7 +2,7 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "Tyä miähen plogi 4",
-  "author": "Kauppisen Pete",
-  "url": "www.kauppisenmaansiirtofirma.fi/neljä-bloki"
+  "title": "Työ miehen salat",
+  "author": "Pete Kauppinen",
+  "url": "www.kauppisenmaansiirtofirma.fi/blogi"
 }
