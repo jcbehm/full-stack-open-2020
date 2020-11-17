@@ -3,7 +3,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktvdGthbWllcyIsImlkIjoiNWZiM2RlOTYxNTI5ZDAzMDZjNzJhM2NlIiwiaWF0IjoxNjA1NjM1ODYxfQ.EEm9oKq4SodS7siPukLvjGInVzAL0fRiSf_iC76Sc3U
 
 {
-  "title": "Daewoon käyttö ohoje",
+  "title": "Hilipaa hippan hei",
   "author": "Pete Kauppinen",
-  "url": "www.kauppisenmaansiirtofirma.fi/ohje"
+  "url": "www.kauppisenmaansiirtofirma.fi/viihde"
 }
