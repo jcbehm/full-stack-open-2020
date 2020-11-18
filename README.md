@@ -2,6 +2,6 @@
 
 Fullstack-kurssille.
 
-Heroku-sovellus: https://quiet-lowlands-21827.herokuapp.com/
+Heroku-sovellus (osa3): https://quiet-lowlands-21827.herokuapp.com/
 
-Puhelinluettelon backendin git: https://github.com/jcbehm/puhelinluettelon-backend/blob/main/README.md
+Puhelinluettelon backendin git (osa 3): https://github.com/jcbehm/puhelinluettelon-backend/blob/main/README.md
