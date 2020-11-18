@@ -38,6 +38,7 @@ test('a valid blog can be added ', async () => {
 
   await api
     .post('/api/blogs')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmYjUzOTdmOWUxNGU5MzllMDY5YjAyOSIsImlhdCI6MTYwNTcxMzUwNX0.GLciwyuJaooiFedCuEzjOfhhVwCR7HcOS40DhGUpkDU')
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
@@ -59,6 +60,7 @@ test('blog without title and url is not added', async () => {
 
   await api
     .post('/api/blogs')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmYjUzOTdmOWUxNGU5MzllMDY5YjAyOSIsImlhdCI6MTYwNTcxMzUwNX0.GLciwyuJaooiFedCuEzjOfhhVwCR7HcOS40DhGUpkDU')
     .send(newBlog)
     .expect(400)
 
@@ -76,6 +78,7 @@ test('blog without likes-param. is considered a blog with zero likes', async () 
 
   await api
     .post('/api/blogs')
+    .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjVmYjUzOTdmOWUxNGU5MzllMDY5YjAyOSIsImlhdCI6MTYwNTcxMzUwNX0.GLciwyuJaooiFedCuEzjOfhhVwCR7HcOS40DhGUpkDU')
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
@@ -92,6 +95,29 @@ test('blog without likes-param. is considered a blog with zero likes', async () 
     .filter(blog => blog.title === 'ploki')
     .map(ploki => ploki.likes))
     .toEqual([0])
+})
+
+test('a blog can´t be added if there is no token', async () => {
+  const newBlog = {
+    'title': 'Uusi blogi',
+    'author': 'Supertest',
+    'url': 'www.supertest.fi',
+    'likes': 3
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(401)
+    .expect('Content-Type', /application\/json/)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
+
+  const titles = blogsAtEnd.map(r => r.title)
+  expect(titles).not.toContain(
+    'Uusi blogi'
+  )
 })
 
 afterAll(() => {
