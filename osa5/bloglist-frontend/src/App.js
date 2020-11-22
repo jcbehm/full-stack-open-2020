@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [message, setMessage] = useState(null)
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null) 
@@ -46,9 +47,9 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
+      setMessage('error: wrong username or password')
       setTimeout(() => {
-        setErrorMessage(null)
+        setMessage(null)
       }, 5000)
     }
   }
@@ -58,18 +59,21 @@ const App = () => {
     const blog = {'title': title, 'author': author, 'url': url}
 
     try {
-      // const createdBlog = await blogService.create(blog)
-      await blogService.create(blog)
+      const createdBlog = await blogService.create(blog)
       setTitle('')
       setAuthor('')
       setUrl('')
+      setMessage('a new blog ' + createdBlog.title + ' by ' + createdBlog.author + ' added')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
       blogService.getAll().then(blogs =>
         setBlogs( blogs )
-      )  
+      )
     } catch (exception) {
-      setErrorMessage(`couldn't create a blog`)
+      setMessage(`error: couldn't create a blog`)
       setTimeout(() => {
-        setErrorMessage(null)
+        setMessage(null)
       }, 5000)
     }
   }
@@ -82,8 +86,8 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-        <p>{errorMessage}</p>
         <h2>Log in to application</h2>
+        <Notification message={message} />
         <form onSubmit={handleLogin}>
           <div>
             username
@@ -111,8 +115,8 @@ const App = () => {
 
   return (
     <div>
-      <p>{errorMessage}</p>
       <h2>blogs</h2>
+      <Notification message={message} />
       <p>
         {user.username} logged in
         <button onClick={logOut}>
