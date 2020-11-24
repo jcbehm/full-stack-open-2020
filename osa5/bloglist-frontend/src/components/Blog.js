@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, refresh }) => {
   const [view, setView] = useState(false)
   const [liked, setLiked] = useState(window.localStorage.getItem('liked-' + blog.id))
 
@@ -19,6 +19,7 @@ const Blog = ({ blog }) => {
       ('liked-' + blog.id), true
     )
     setLiked(true)
+    refresh()
   }
 
   if (!view) {
@@ -41,7 +42,7 @@ const Blog = ({ blog }) => {
     {blog.url}
     <br/>
     
-    likes {liked ? blog.likes + 1 : blog.likes}
+    likes {blog.likes}
     {" "}
     {liked ? null : <button onClick={like}>like</button> }
     <br/>

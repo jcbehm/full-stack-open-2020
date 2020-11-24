@@ -15,10 +15,14 @@ const App = () => {
 
   const blogFormRef = useRef()
 
-  useEffect(() => {
+  const getBlogs = () => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+      setBlogs( blogs.sort((a, b) => b.likes - a.likes) )
+    )
+  }
+
+  useEffect(() => {
+    getBlogs()
   }, [])
 
   useEffect(() => {
@@ -62,8 +66,7 @@ const App = () => {
       setTimeout(() => {
         setMessage(null)
       }, 5000)
-      const newBlogs = await blogService.getAll()
-      setBlogs(newBlogs)
+      getBlogs()
     } catch (exception) {
       setMessage(`error: couldn't create a blog`)
       console.log('[DEBUG] ', exception.message)
@@ -123,7 +126,7 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} refresh={getBlogs} />
       )}
     </div>
   )
