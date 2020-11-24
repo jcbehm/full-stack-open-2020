@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import blogService from '../services/blogs'
 
 const Blog = ({ blog }) => {
   const [view, setView] = useState(false)
+  const [liked, setLiked] = useState(window.localStorage.getItem('liked-' + blog.id))
 
   const blogStyle = {
     paddingTop: 10,
@@ -9,6 +11,14 @@ const Blog = ({ blog }) => {
     border: 'solid',
     borderWidth: 1,
     marginBottom: 5
+  }
+  
+  const like = async () => {
+    await blogService.like(blog)
+    window.localStorage.setItem(
+      ('liked-' + blog.id), true
+    )
+    setLiked(true)
   }
 
   if (!view) {
@@ -31,9 +41,9 @@ const Blog = ({ blog }) => {
     {blog.url}
     <br/>
     
-    likes {blog.likes}
+    likes {liked ? blog.likes + 1 : blog.likes}
     {" "}
-    <button>like</button>
+    {liked ? null : <button onClick={like}>like</button> }
     <br/>
 
     {blog.author}

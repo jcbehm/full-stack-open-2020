@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3003/api/blogs'
+const baseUrl = 'http://localhost:3003/api/blogs/'
 
 let token = null
 
@@ -20,4 +20,10 @@ const create = async newObject => {
   return response.data
 }
 
-export default { getAll, create, setToken }
+const like = async newObject => {
+  const likedObject = ({...newObject, likes: (newObject.likes + 1)})
+  const response = await axios.put((baseUrl + likedObject.id), likedObject)
+  return response.data
+}
+
+export default { getAll, create, setToken, like }
