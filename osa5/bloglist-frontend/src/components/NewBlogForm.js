@@ -5,10 +5,10 @@ const NewBlogForm = ({ handleCreation }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
-  
+
   const addBlog = (event) => {
     event.preventDefault()
-    handleCreation({'title': title, 'author': author, 'url': url})
+    handleCreation({ 'title': title, 'author': author, 'url': url })
 
     setTitle('')
     setAuthor('')
@@ -20,41 +20,41 @@ const NewBlogForm = ({ handleCreation }) => {
       <br/>
       <h2>create new</h2>
       <form onSubmit={addBlog}>
-          <div>
+        <div>
             title
-            <input
+          <input
             type="text"
             value={title}
             name="Title"
             onChange={({ target }) => setTitle(target.value)}
-            />
-          </div>
-          <div>
+          />
+        </div>
+        <div>
             author
-            <input
+          <input
             type="text"
             value={author}
             name="Author"
             onChange={({ target }) => setAuthor(target.value)}
-            />
-          </div>
-          <div>
+          />
+        </div>
+        <div>
             url
-            <input
+          <input
             type="url"
             value={url}
             name="Url"
             onChange={({ target }) => setUrl(target.value)}
-            />
-          </div>
-          <button type="submit">create</button>
-        </form>
+          />
+        </div>
+        <button type="submit">create</button>
+      </form>
     </div>
   )
 }
 
 NewBlogForm.propTypes = {
-    handleCreation: PropTypes.func.isRequired
-  }
+  handleCreation: PropTypes.func.isRequired
+}
 
 export default NewBlogForm

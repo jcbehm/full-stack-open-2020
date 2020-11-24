@@ -29,7 +29,7 @@ const remove = async newObject => {
 }
 
 const like = async newObject => {
-  const likedObject = ({...newObject, likes: (newObject.likes + 1)})
+  const likedObject = ({ ...newObject, likes: (newObject.likes + 1) })
   const response = await axios.put((baseUrl + likedObject.id), likedObject)
   return response.data
 }

@@ -9,7 +9,7 @@ import NewBlogForm from './components/NewBlogForm'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [message, setMessage] = useState(null)
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
@@ -44,8 +44,8 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBloglistUser', JSON.stringify(user)
-      ) 
-      
+      )
+
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -68,14 +68,14 @@ const App = () => {
       }, 5000)
       getBlogs()
     } catch (exception) {
-      setMessage(`error: couldn't create a blog`)
+      setMessage('error: couldn´t create a blog')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
     }
   }
 
-  const logOut = (event) => {
+  const logOut = () => {
     window.localStorage.clear()
     setUser(null)
   }
@@ -89,20 +89,20 @@ const App = () => {
           <div>
             username
             <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
             />
           </div>
           <div>
             password
             <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-           />
+              type="password"
+              value={password}
+              name="Password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
           </div>
           <button type="submit">login</button>
         </form>

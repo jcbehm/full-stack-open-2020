@@ -12,7 +12,7 @@ const Blog = ({ blog, user, setMessage, refresh }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
+
   const like = async () => {
     await blogService.like(blog)
     window.localStorage.setItem(
@@ -23,7 +23,7 @@ const Blog = ({ blog, user, setMessage, refresh }) => {
   }
 
   const remove = async () => {
-    if (window.confirm((`Remove blog ` + blog.title + ` by ` + blog.author + `?`))) {
+    if (window.confirm(('Remove blog ' + blog.title + ' by ' + blog.author + '?'))) {
       await blogService.remove(blog)
       setMessage('blog ' + blog.title + ' by ' + blog.author + ' removed')
       setTimeout(() => {
@@ -37,32 +37,32 @@ const Blog = ({ blog, user, setMessage, refresh }) => {
     return (
       <div style={blogStyle} onClick={() => setView(true)}>
         {blog.title} {blog.author}
-        {" "}
+        {' '}
         <button onClick={() => setView(true)}>view</button>
       </div>
-      )
+    )
   }
 
   return (
-  <div style={blogStyle}>
-    {blog.title} {blog.author}
-    {" "}
-    <button onClick={() => setView(false)}>hide</button>
-    <br/>
+    <div style={blogStyle}>
+      {blog.title} {blog.author}
+      {' '}
+      <button onClick={() => setView(false)}>hide</button>
+      <br/>
 
-    {blog.url}
-    <br/>
-    
+      {blog.url}
+      <br/>
+
     likes {blog.likes}
-    {" "}
-    {liked ? null : <button onClick={like}>like</button> }
-    <br/>
+      {' '}
+      {liked ? null : <button onClick={like}>like</button> }
+      <br/>
 
-    {blog.user.name}
-    <br/>
+      {blog.user.name}
+      <br/>
 
-    {blog.user.username === user.username ? <button onClick={remove}>remove</button> : null}
-  </div>
+      {blog.user.username === user.username ? <button onClick={remove}>remove</button> : null}
+    </div>
   )
 }
 
