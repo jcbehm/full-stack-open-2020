@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -13,11 +13,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-
-  const [toggle, setToggle] = useState(false)
+  const blogFormRef = useRef()
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -58,22 +54,16 @@ const App = () => {
     }
   }
 
-  const handleCreation = async (event) => {
-    event.preventDefault()
-    const blog = {'title': title, 'author': author, 'url': url}
-
+  const handleCreation = async (blog) => {
+    blogFormRef.current.toggleVisibility()
     try {
       const createdBlog = await blogService.create(blog)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
       setMessage('a new blog ' + createdBlog.title + ' by ' + createdBlog.author + ' added')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
       const newBlogs = await blogService.getAll()
       setBlogs(newBlogs)
-      setToggle(true)
     } catch (exception) {
       setMessage(`error: couldn't create a blog`)
       console.log('[DEBUG] ', exception.message)
@@ -85,7 +75,7 @@ const App = () => {
 
   const logOut = (event) => {
     window.localStorage.clear()
-    window.location.reload()
+    setUser(null)
   }
 
   if (user === null) {
@@ -128,16 +118,8 @@ const App = () => {
           logout
         </button>
       </p>
-      <Togglable buttonLabel='new blog' toggle={toggle} setToggle={setToggle}>
-        <NewBlogForm
-          handleCreation={handleCreation}
-          title={title}
-          author={author}
-          url={url}
-          handleTitleChange={({ target }) => setTitle(target.value)}
-          handleAuthorChange={({ target }) => setAuthor(target.value)}
-          handleUrlChange={({ target }) => setUrl(target.value)}
-        />
+      <Togglable buttonLabel='new blog' ref={blogFormRef}>
+        <NewBlogForm handleCreation={handleCreation}/>
       </Togglable>
 
       {blogs.map(blog =>
