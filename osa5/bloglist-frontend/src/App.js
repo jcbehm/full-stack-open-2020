@@ -69,7 +69,6 @@ const App = () => {
       getBlogs()
     } catch (exception) {
       setMessage(`error: couldn't create a blog`)
-      console.log('[DEBUG] ', exception.message)
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -126,7 +125,7 @@ const App = () => {
       </Togglable>
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} refresh={getBlogs} />
+        <Blog key={blog.id} blog={blog} refresh={getBlogs} user={user} setMessage={setMessage} />
       )}
     </div>
   )
