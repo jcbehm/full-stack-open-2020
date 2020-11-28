@@ -48,7 +48,7 @@ const Blog = ({ blog, user, setMessage, refresh }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div className='blog-ext' style={blogStyle}>
       {blog.title} {blog.author}
       {' '}
       <button onClick={() => setView(false)}>hide</button>
