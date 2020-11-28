@@ -71,4 +71,3 @@ describe('when a normal blog is rendered', () => {
   })
 
 })
-
