@@ -35,7 +35,11 @@ const Blog = ({ blog, user, setMessage, refresh }) => {
 
   if (!view) {
     return (
-      <div style={blogStyle} onClick={() => setView(true)}>
+      <div
+        className='blog-init'
+        style={blogStyle}
+        onClick={() => setView(true)}
+      >
         {blog.title} {blog.author}
         {' '}
         <button onClick={() => setView(true)}>view</button>
