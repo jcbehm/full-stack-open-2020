@@ -5,6 +5,7 @@ import Blog from './Blog'
 
 describe('when a normal blog is rendered', () => {
   let component
+  let mockHandler
   const blog = {
     title: 'Component testing with react-testing-library',
     author: 'Full Stack Open 2020',
@@ -16,8 +17,9 @@ describe('when a normal blog is rendered', () => {
   }
 
   beforeEach(() => {
+    mockHandler = jest.fn()
     component = render(
-      <Blog blog={blog} user={{ username: 'tester' }} />
+      <Blog blog={blog} user={{ username: 'tester' }} like={mockHandler} />
     )
   })
 
@@ -46,9 +48,8 @@ describe('when a normal blog is rendered', () => {
   })
 
   test('clicking the view-button shows url and likes', () => {
-
-    const button = component.getByText('view')
-    fireEvent.click(button)
+    const viewButton = component.getByText('view')
+    fireEvent.click(viewButton)
 
     expect(component.container).toHaveTextContent(
       'https://fullstackopen.com/osa5/'
@@ -56,6 +57,17 @@ describe('when a normal blog is rendered', () => {
     expect(component.container).toHaveTextContent(
       'likes'
     )
+  })
+
+  test('clicking the like-button twice calls the eventhandler twice', () => {
+    const viewButton = component.getByText('view')
+    fireEvent.click(viewButton)
+
+    const likeButton = component.getByText('like')
+    fireEvent.click(likeButton)
+    fireEvent.click(likeButton)
+
+    expect(mockHandler.mock.calls).toHaveLength(2)
   })
 
 })
