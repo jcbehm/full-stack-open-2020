@@ -61,6 +61,17 @@ describe('Blog app', function() {
 
         cy.contains('likes 1')
       })
+
+      it('a blog can be removed', function() {
+        cy.intercept('/api/blogs/*').as('blogs')
+        cy.contains('Norjalaisten kukkaruukkujen historia').click()
+        cy.contains('remove').click()
+
+        cy.contains('removed')
+
+        cy.get('html').should('not.contain', 'hide')
+        cy.get('html').should('not.contain', 'view')
+      })
     })
   })
 })
