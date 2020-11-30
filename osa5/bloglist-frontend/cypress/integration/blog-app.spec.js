@@ -34,12 +34,10 @@ describe('Blog app', function() {
 
   describe('when logged in', function() {
     beforeEach(function() {
-      cy.get('#username').type('Pekka Peitsi')
-      cy.get('#password').type('lep1kko')
-      cy.get('#login-button').click()
+      cy.login({ username: 'Pekka Peitsi', password: 'lep1kko' })
     })
 
-    it('a new note can be created', function() {
+    it('a new blog can be created', function() {
       cy.contains('new blog').click()
       cy.get('#title').type('Norjalaisten kukkaruukkujen historia')
       cy.get('#author').type('Magnus Larsson')
@@ -47,6 +45,22 @@ describe('Blog app', function() {
       cy.get('#create-button').click()
 
       cy.contains('Norjalaisten kukkaruukkujen historia')
+    })
+
+    describe('and a blog exists', function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: 'Norjalaisten kukkaruukkujen historia',
+          author: 'Magnus Larsson',
+          url: 'http://www.blomsterpotterna.no/'
+        })
+      })
+      it('a blog can be liked', function() {
+        cy.contains('Norjalaisten kukkaruukkujen historia').click()
+        cy.contains('like').click()
+
+        cy.contains('likes 1')
+      })
     })
   })
 })
