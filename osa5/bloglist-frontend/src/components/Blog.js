@@ -34,6 +34,7 @@ const Blog = ({ blog, user, setMessage, refresh, like }) => {
   if (!view) {
     return (
       <div
+        data-test-id='blog'
         className='blog-init'
         style={blogStyle}
         onClick={() => setView(true)}
@@ -46,7 +47,7 @@ const Blog = ({ blog, user, setMessage, refresh, like }) => {
   }
 
   return (
-    <div className='blog-ext' style={blogStyle}>
+    <div data-test-id='blog' className='blog-ext' style={blogStyle}>
       {blog.title} {blog.author}
       {' '}
       <button onClick={() => setView(false)}>hide</button>

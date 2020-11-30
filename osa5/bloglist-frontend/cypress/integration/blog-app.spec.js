@@ -72,6 +72,40 @@ describe('Blog app', function() {
         cy.get('html').should('not.contain', 'hide')
         cy.get('html').should('not.contain', 'view')
       })
+
+      it('several blogs are arranged according to their likes', function() {
+        cy.createBlog({
+          title: 'Helmenkalastajan tyypillinen viikko',
+          author: 'Michael Järvinen',
+          url: 'http://www.helmiblogi.fi/'
+        })
+        cy.createBlog({
+          title: 'Muinaiset juhlapyhät',
+          author: 'Aleksi Anttonen',
+          url: 'http://www.muinaisetjuhlapyhat.fi/'
+        })
+
+        cy.intercept('/api/blogs/*').as('blogs')
+
+        cy.contains('Helmenkalastajan tyypillinen viikko').click()
+          .contains('like').click()
+
+        cy.contains('Muinaiset juhlapyhät').click()
+          .contains('like').click()
+
+        cy.wait(1000)
+
+        cy.contains('Muinaiset juhlapyhät').click()
+          .contains('like').click()
+
+        cy.wait(1000)
+
+        cy.contains('Norjalaisten kukkaruukkujen historia').click()
+
+        cy.get('[data-test-id="blog"]').first().contains('likes 2')
+
+        cy.get('[data-test-id="blog"]').last().contains('likes 0')
+      })
     })
   })
 })
