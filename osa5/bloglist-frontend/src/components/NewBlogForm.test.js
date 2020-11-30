@@ -1,7 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent } from '@testing-library/react'
-import Blog from './Blog'
 import NewBlogForm from './NewBlogForm'
 
 test('when a new blog is created, the form calls a callback-function with correct props', () => {
