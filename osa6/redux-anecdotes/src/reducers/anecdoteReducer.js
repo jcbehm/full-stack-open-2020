@@ -45,10 +45,10 @@ export const voteById = (id) => {
   }
 }
 
-export const createAnecdote = (content) => {
+export const createAnecdote = (data) => {
   return {
     type: 'CREATE',
-    data: { content }
+    data
   }
 }
 
