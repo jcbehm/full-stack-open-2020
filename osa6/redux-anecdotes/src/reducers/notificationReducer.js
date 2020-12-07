@@ -11,25 +11,15 @@ const notificationReducer = (state = initialState, action) => {
   }
 }
 
-export const notificationVote = notification => {
-  notification = `you voted '` + notification + `'`
-  return {
-    type: 'SET_NOTIFICATION',
-    notification
-  }
-}
-
-export const notificationCreate = notification => {
-  notification = `you added '` + notification + `'`
-  return {
-    type: 'SET_NOTIFICATION',
-    notification
-  }
-}
-
-export const notificationRemoval = () => {
-  return {
-    type: 'REMOVE_NOTIFICATION'
+export const setNotification = (notification, seconds) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      notification
+    })
+    setTimeout(() => {
+      dispatch({type: 'REMOVE_NOTIFICATION'})
+    }, (seconds * 1000))
   }
 }
 
