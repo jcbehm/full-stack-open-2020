@@ -1,15 +1,5 @@
 import anecdoteService from '../services/anecdotes'
 
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
-
 const anecdoteReducer = (state = [], action) => {
   // console.log('state now: ', state)
   // console.log('action', action)
@@ -30,10 +20,12 @@ const anecdoteReducer = (state = [], action) => {
       return newState
 
     case 'CREATE':
-      return state.concat(asObject(action.data.content))
+      return state.concat(action.data)
 
     case 'INIT_ANECDOTES':
-      return action.data
+      newState = [...action.data]
+      newState.sort(byVotes)
+      return newState
     
     default:
       return state
