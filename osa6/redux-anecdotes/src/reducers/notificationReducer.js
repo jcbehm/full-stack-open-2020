@@ -11,15 +11,21 @@ const notificationReducer = (state = initialState, action) => {
   }
 }
 
+let timeoutIDs = []
+
 export const setNotification = (notification, seconds) => {
   return async dispatch => {
+    clearTimeout(timeoutIDs[timeoutIDs.length - 1])
     dispatch({
       type: 'SET_NOTIFICATION',
       notification
     })
-    setTimeout(() => {
-      dispatch({type: 'REMOVE_NOTIFICATION'})
+    const timeoutID = setTimeout(() => {
+      dispatch({
+        type: 'REMOVE_NOTIFICATION',
+        notification})
     }, (seconds * 1000))
+    timeoutIDs = timeoutIDs.concat(timeoutID)
   }
 }
 
